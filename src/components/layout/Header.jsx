@@ -1,9 +1,22 @@
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { NavLink } from "react-router-dom"
+
 export const Header =()=>{
     return(
         <>
         <header>
         <nav className="bg-gray-800 p-4">
-            <h1 className="text-white text-lg">My App</h1>
+            <div className="flex items-center justify-between">
+                <div>
+
+                <h1 className="text-white text-lg">ManishQuery</h1>
+                </div>
+                <div className="gap-5 flex">
+                    <NavLink to="/" className="text-gray-300 hover:text-white">Home</NavLink>
+                    <NavLink to="/trad" className="text-gray-300 hover:text-white">FetchOld</NavLink>
+                    <NavLink to="/rq" className="text-gray-300 hover:text-white">FetchNew</NavLink>
+                </div>
+            </div>
         </nav>  
     </header>
     </>

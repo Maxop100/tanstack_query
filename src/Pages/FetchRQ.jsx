@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "../api/api";
 
 export const FetchRQ = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError,error } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
 
   if (isLoading) return <h2>Loading...</h2>;
-  if (isError) return <h2>Error fetching posts</h2>;
+  if (isError) return <h2>{error.message || " error fetching posts!"}</h2>;
 
   // check the structure of data
   console.log("Query data:", data);
