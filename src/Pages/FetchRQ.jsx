@@ -1,11 +1,13 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "../api/api";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deletePost, fetchPosts } from "../api/api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 export const FetchRQ = () => {
 
 const [pageNumber, setPageNumber] = useState(0);
+
+const queryClient = useQueryClient();
 
   const { data, isLoading, isError,error } = useQuery({
     queryKey: ["posts", pageNumber],
@@ -19,11 +21,21 @@ const [pageNumber, setPageNumber] = useState(0);
 
   });
 
+
+ const deleteMutation =useMutation({
+  mutationFn:(id)=>deletePost(id),
+  onSuccess:(data,id)=>{
+    queryClient.setQueryData(["posts", pageNumber], (oldData) => {
+      return oldData.filter((post) => post.id !== id);
+    });
+  }
+ })
+
   if (isLoading) return <h2>Loading...</h2>;
   if (isError) return <h2>{error.message || " error fetching posts!"}</h2>;
 
   // check the structure of data
-  console.log("Query data:", data);
+ 
 
   // if API returns { data: [...] }
   const posts = Array.isArray(data) ? data : data?.data ?? [];
@@ -43,7 +55,9 @@ const [pageNumber, setPageNumber] = useState(0);
         <p className="text-white">{post.id}</p>
         <span className="text-lg font-medium text-white">{post.title}</span>
         <p className="text-white">{post.body}</p>
+
         </NavLink>
+        <button onClick={() => deleteMutation.mutate(post.id)} className="px-4 m-2 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">Delete</button>
       </li>
     ))
   ) : (

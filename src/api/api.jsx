@@ -24,3 +24,8 @@ export const fetchPostById = async (id) => {
     console.log('Error fetching post by ID:', error);
   }
 };
+
+export const deletePost = async (id) => {
+  return api.delete(`/posts/${id}`);
+}
+
