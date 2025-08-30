@@ -1,5 +1,5 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deletePost, fetchPosts } from "../api/api";
+import { deletePost, fetchPosts, updatePost } from "../api/api";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
@@ -24,9 +24,22 @@ const queryClient = useQueryClient();
 
  const deleteMutation =useMutation({
   mutationFn:(id)=>deletePost(id),
-  onSuccess:(data,id)=>{
+  onSuccess:(ApiData,id)=>{
     queryClient.setQueryData(["posts", pageNumber], (oldData) => {
-      return oldData.filter((post) => post.id !== id);
+      return oldData?.filter((post) => post.id !== id);
+    });
+  }
+ })
+ 
+
+ const updateMutation =useMutation({
+  mutationFn:(id)=>updatePost(id),
+  onSuccess:(data,id)=>{
+    {console.log(data,id)}
+    queryClient.setQueryData(["posts", pageNumber], (postData) => {
+      return postData?.map((curPost)=>{
+        return curPost.id===id?{...curPost,title:data.data.title}:curPost
+      });
     });
   }
  })
@@ -58,6 +71,7 @@ const queryClient = useQueryClient();
 
         </NavLink>
         <button onClick={() => deleteMutation.mutate(post.id)} className="px-4 m-2 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">Delete</button>
+        <button onClick={() => updateMutation.mutate(post.id)} className="px-4 m-2 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">Update</button>
       </li>
     ))
   ) : (

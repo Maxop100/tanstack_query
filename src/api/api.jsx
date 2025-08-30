@@ -29,3 +29,9 @@ export const deletePost = async (id) => {
   return api.delete(`/posts/${id}`);
 }
 
+
+export const updatePost = async (id) => {
+  return api.patch(`/posts/${id}`,{title:"i have updated"});
+}
+
+
