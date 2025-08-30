@@ -5,6 +5,7 @@ import { FetchOld } from "./Pages/FetchOld";
 import { FetchRQ } from "./Pages/FetchRQ";
 import { Home } from "./Pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { FetchIndv } from "./Pages/FetchIndv";
 
 const router =createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router =createBrowserRouter([
         path:"/rq",
         element:<FetchRQ/>
       },
+      {
+        path:"/rq/:id",
+        element:<FetchIndv/>
+      }
     ],
   },
   

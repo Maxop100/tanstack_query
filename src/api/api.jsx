@@ -8,6 +8,19 @@ const api = axios.create({
 export default api;
 
 export const fetchPosts = async () => {
-  const response = await api.get("/posts");
+ try{
+   const response = await api.get("/posts");
   return response.status === 200 ? response.data : [];
+ }catch(error){
+  console.log('Error fetching posts:', error);
+ }
+};
+
+export const fetchPostById = async (id) => {
+  try {
+    const response = await api.get(`/posts/${id}`);
+    return response.status === 200 ? response.data : null;
+  } catch (error) {
+    console.log('Error fetching post by ID:', error);
+  }
 };
