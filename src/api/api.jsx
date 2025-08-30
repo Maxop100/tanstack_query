@@ -7,9 +7,9 @@ const api = axios.create({
 
 export default api;
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (pageNumber) => {
  try{
-   const response = await api.get("/posts");
+   const response = await api.get(`/posts?_start=${pageNumber}&_limit=4`);
   return response.status === 200 ? response.data : [];
  }catch(error){
   console.log('Error fetching posts:', error);
