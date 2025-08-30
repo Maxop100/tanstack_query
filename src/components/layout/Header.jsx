@@ -11,7 +11,7 @@ export const Header =()=>{
 
                 <h1 className="text-white text-lg">ManishQuery</h1>
                 </div>
-                <div className="gap-5 flex">
+                <div className="gap-5 hidden md:flex">
                     <NavLink to="/" className="text-gray-300 hover:text-white">Home</NavLink>
                     <NavLink to="/trad" className="text-gray-300 hover:text-white">FetchOld</NavLink>
                     <NavLink to="/rq" className="text-gray-300 hover:text-white">FetchNew</NavLink>

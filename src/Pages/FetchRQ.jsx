@@ -5,6 +5,8 @@ export const FetchRQ = () => {
   const { data, isLoading, isError,error } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
+    gcTime: 1000, // 1 second
+    staleTime: 10000, // 10 seconds
   });
 
   if (isLoading) return <h2>Loading...</h2>;
@@ -18,6 +20,7 @@ export const FetchRQ = () => {
 
   return (
     <>
+    
       <h2>Posts</h2>
       <ul>
         {posts.length > 0 ? (
