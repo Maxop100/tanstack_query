@@ -35,3 +35,17 @@ export const updatePost = async (id) => {
 }
 
 
+//infinite scrolling
+
+export const fetchUsers =async ({pageParam=1})=>{
+  try{
+    const response = await api.get(`https://api.github.com/users?per_page=10&page=${pageParam}`);
+    console.log(response);
+    return response.data;
+    
+  }catch(error){
+    console.log("error fetching users:", error);
+  }
+}
+
+

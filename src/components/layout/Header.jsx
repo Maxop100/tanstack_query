@@ -15,6 +15,7 @@ export const Header =()=>{
                     <NavLink to="/" className="text-gray-300 hover:text-white">Home</NavLink>
                     <NavLink to="/trad" className="text-gray-300 hover:text-white">FetchOld</NavLink>
                     <NavLink to="/rq" className="text-gray-300 hover:text-white">FetchNew</NavLink>
+                    <NavLink to="/infinite" className="text-gray-300 hover:text-white">Infinite</NavLink>
                 </div>
             </div>
         </nav>  
